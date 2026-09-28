@@ -19,12 +19,12 @@ A professional project base: git, GitHub, one-command build, tests, automatic qu
 - [x] 0.1 Create the git repo and a git-ignored `private/` folder for the research
 - [x] 0.2 Create this Phase 0 plan file
 - [x] 0.3 Create the `/next-step` and `/wrap-up` skills
-- [ ] 0.4 Make the first commit
-- [ ] 0.5 Rename the folder to `cbc-gym`
+- [x] 0.4 Make the first commit
+- [x] 0.5 Rename the folder to `cbc-gym`
 
 ### B. GitHub
 
-- [ ] 0.6 Add a README and a LICENSE
+- [x] 0.6 Add a README and a LICENSE
 - [ ] 0.7 Create a private GitHub repo and push
 - [ ] 0.8 Protect `main` (changes only through pull requests)
 
@@ -43,4 +43,4 @@ A professional project base: git, GitHub, one-command build, tests, automatic qu
 
 ## Session notes
 
-- 2026-09-28: Wrote CLAUDE.md and the roadmap, planned Phase 0, and finished 0.1–0.3. Next: 0.4.
+- 2026-09-28: Wrote CLAUDE.md and the roadmap, planned Phase 0, and finished 0.1–0.4. Next: 0.5. If the folder is already named `cbc-gym`, tick 0.5 and continue with 0.6.
