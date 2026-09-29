@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+# Stop an older run when a newer commit arrives for the same event and branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.preset }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [debug, release, memory-check]
+
+    env:
+      CC: gcc-13
+      CXX: g++-13
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes cmake ninja-build g++-13
+
+      - name: Configure, build and test
+        run: cmake --workflow --preset ${{ matrix.preset }}
+
+  macos:
+    name: Build and test (macOS debug)
+    runs-on: macos-15
+    timeout-minutes: 5
+    env:
+      CC: clang
+      CXX: clang++
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Ensure build tools are available
+        run: |
+          command -v cmake || brew install cmake
+          command -v ninja || brew install ninja
+
+      - name: Configure, build and test
+        run: cmake --workflow --preset debug
+
+  quality:
+    name: Code quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      CC: clang-18
+      CXX: clang++-18
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Install quality tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes cmake ninja-build clang-18 clang-format-18 clang-tidy-18
+
+      - name: Check formatting
+        shell: bash
+        run: |
+          mapfile -d '' files < <(find apps include src tests -type f \( -name '*.cpp' -o -name '*.hpp' \) -print0)
+          clang-format-18 --dry-run --Werror "${files[@]}"
+
+      - name: Configure for static analysis
+        run: cmake --preset debug
+
+      - name: Run static analysis
+        shell: bash
+        run: |
+          mapfile -d '' files < <(find apps src tests -type f -name '*.cpp' -print0)
+          clang-tidy-18 -p build/debug --warnings-as-errors='*' --header-filter='(^|/)(include/cbc|apps|src|tests)/' "${files[@]}"
