@@ -73,7 +73,8 @@ for consistent results with CI; other versions can format some code differently.
 The runner and package patch versions can change as Ubuntu receives updates.
 
 The workflow uses read-only repository permissions and a checkout action pinned
-to a commit. Its first remote run is still pending.
+to a commit. All five checks must pass, and the branch must be up to date with
+`main`, before a pull request can merge. These rules also apply to administrators.
 
 ## License
 

@@ -38,11 +38,12 @@ A professional project base: git, GitHub, one-command build, tests, automatic qu
 
 - [x] 0.12 Auto-formatter (`clang-format`)
 - [x] 0.13 Static checker (`clang-tidy`)
-- [ ] 0.14 CI on GitHub for every change
+- [x] 0.14 CI on GitHub for every change
 - [ ] 0.15 One real pull request through the whole flow
 
 ## Session notes
 
+- 2026-09-29: Opened PR #1 from `setup/cmake`. All five GitHub CI jobs passed (Linux debug/release/memory-check, macOS debug, code quality), and a fresh remote clone passed the one-command debug workflow. Enabled all five required checks and up-to-date branches on `main`, preserving existing protections and administrator enforcement. Confirmed GitHub reports the repository as public. Next: review and merge PR #1 to finish 0.15.
 - 2026-09-29: Added one-command CMake workflows for all three presets, project-only compiler warnings as errors, a SHA-256 check for GoogleTest, and a macOS debug CI job. All three local workflows passed, plus a debug workflow from a fresh source copy in a temporary directory; actionlint passed. First GitHub run, verification of required status checks, and the real PR remain pending.
 - 2026-09-29: Implemented the CI workflow for 0.14: GCC 13 debug/release/memory-check builds and tests plus Clang 18 formatting/static analysis on Ubuntu 24.04, five-minute job limits, read-only permissions and pinned checkout. Remote execution is pending; leave 0.14 unchecked until GitHub runs it successfully.
 - 2026-09-29: Completed 0.13. Yohai created `.clang-tidy` with analyzer, bugprone and performance checks. The bundled clang-tidy checked all three project `.cpp` files with no project diagnostics; dependency warnings were suppressed. On this Mac the invocation needed `--extra-arg=-isysroot$(xcrun --show-sdk-path)`, `--extra-arg=-isystem$(xcrun --show-sdk-path)/usr/include/c++/v1` and `--extra-arg=-resource-dir=$(/usr/bin/clang++ -print-resource-dir)` alongside `-p build/debug`. Next: 0.14 (GitHub CI).
