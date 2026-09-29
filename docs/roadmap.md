@@ -6,7 +6,7 @@ Status: ⬜ not started · 🟡 in progress · ✅ done
 
 | Phase | Name | Goal | Status |
 | --- | --- | --- | --- |
-| 0 | Setup and workflow | Repo, build, tests and CI ready; workflow in place | 🟡 |
+| 0 | Setup and workflow | Repo, build, tests and CI ready; workflow in place | ✅ |
 | 1 | Plant model | Simulate the fiber array and its far field; match published figures | ⬜ |
 | 2 | Baseline controllers | Hill-climb, SPGD and LOCSET lock the array; benchmark runner | ⬜ |
 | 3 | Viewer | Live far-field view and Python bindings | ⬜ |

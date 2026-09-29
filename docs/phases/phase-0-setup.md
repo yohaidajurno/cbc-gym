@@ -1,6 +1,6 @@
 # Phase 0 — Setup and workflow
 
-Status: 🟡 in progress · Started: 2026-09-28
+Status: ✅ done · Started: 2026-09-28 · Finished: 2026-09-29
 
 ## Goal
 
@@ -39,10 +39,11 @@ A professional project base: git, GitHub, one-command build, tests, automatic qu
 - [x] 0.12 Auto-formatter (`clang-format`)
 - [x] 0.13 Static checker (`clang-tidy`)
 - [x] 0.14 CI on GitHub for every change
-- [ ] 0.15 One real pull request through the whole flow
+- [x] 0.15 One real pull request through the whole flow
 
 ## Session notes
 
+- 2026-09-29: Yohai reviewed and merged PR #1 (5c36007); all five CI jobs passed on main. Deleted `setup/cmake` and created `dev`. Phase 0 done. Next: plan Phase 1 (Plant model).
 - 2026-09-29: Opened PR #1 from `setup/cmake`. All five GitHub CI jobs passed (Linux debug/release/memory-check, macOS debug, code quality), and a fresh remote clone passed the one-command debug workflow. Enabled all five required checks and up-to-date branches on `main`, preserving existing protections and administrator enforcement. Confirmed GitHub reports the repository as public. Next: review and merge PR #1 to finish 0.15.
 - 2026-09-29: Added one-command CMake workflows for all three presets, project-only compiler warnings as errors, a SHA-256 check for GoogleTest, and a macOS debug CI job. All three local workflows passed, plus a debug workflow from a fresh source copy in a temporary directory; actionlint passed. First GitHub run, verification of required status checks, and the real PR remain pending.
 - 2026-09-29: Implemented the CI workflow for 0.14: GCC 13 debug/release/memory-check builds and tests plus Clang 18 formatting/static analysis on Ubuntu 24.04, five-minute job limits, read-only permissions and pinned checkout. Remote execution is pending; leave 0.14 unchecked until GitHub runs it successfully.
